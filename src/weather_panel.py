@@ -45,12 +45,12 @@ def get_face_map(font_config):
         },
         'temp': {
             'label': get_font(font_config, 'JP_REGULAR', 30),
-            'value': get_font(font_config, 'EN_COND_BOLD', 100),
+            'value': get_font(font_config, 'EN_BOLD', 100),
             'unit': get_font(font_config, 'JP_REGULAR', 30),
         },
         'precip': {
             'label': get_font(font_config, 'JP_REGULAR', 30),
-            'value': get_font(font_config, 'EN_COND_BOLD', 100),
+            'value': get_font(font_config, 'EN_BOLD', 100),
             'unit': get_font(font_config, 'JP_REGULAR', 30),
         },
         'weather': {
@@ -212,8 +212,8 @@ def draw_weather(img , label, info, pos_x, pos_y, face_map):
     next_pos_y = draw_text(img, label, [next_pos_x, pos_y],
                            face_map['weather']['day'], color='#999')[1]
     next_pos_x = draw_icon(img, info, next_pos_x, next_pos_y, face_map)
-    next_pos_x = draw_temp(img, info, next_pos_x + 60, pos_y +50, face_map)
-    next_pos_x = draw_precip(img, info, next_pos_x + 120, pos_y + 50, face_map)
+    next_pos_x = draw_temp(img, info, next_pos_x + 20, pos_y +50, face_map)
+    next_pos_x = draw_precip(img, info, next_pos_x + 50, pos_y + 50, face_map)
 
     return next_pos_x
 
