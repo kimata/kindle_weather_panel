@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 import pathlib
 import os
-from influxdb import InfluxDBClient
 import datetime
 import dateutil.parser
 import io
