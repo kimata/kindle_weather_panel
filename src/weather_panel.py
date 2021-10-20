@@ -45,12 +45,12 @@ def get_face_map(font_config):
         },
         'temp': {
             'label': get_font(font_config, 'JP_REGULAR', 30),
-            'value': get_font(font_config, 'EN_BOLD', 100),
+            'value': get_font(font_config, 'EN_COND_BOLD', 100),
             'unit': get_font(font_config, 'JP_REGULAR', 30),
         },
         'precip': {
             'label': get_font(font_config, 'JP_REGULAR', 30),
-            'value': get_font(font_config, 'EN_BOLD', 100),
+            'value': get_font(font_config, 'EN_COND_BOLD', 100),
             'unit': get_font(font_config, 'JP_REGULAR', 30),
         },
         'weather': {
