@@ -4,6 +4,16 @@
 import influxdb_client
 import datetime
 
+FLUX_QUERY = """
+from(bucket: "{bucket}")
+    |> range(start: -{period})
+    |> filter(fn:(r) => r._measurement == "sensor.{sensor_type}")
+    |> filter(fn: (r) => r.hostname == "{hostname}")
+    |> filter(fn: (r) => r["_field"] == "{param}")
+    |> aggregateWindow(every: 3m, fn: mean, createEmpty: false)
+    |> exponentialMovingAverage(n: 3)
+"""
+
 
 def fetch_data(config, sensor_type, hostname, param, period="30h"):
     client = influxdb_client.InfluxDBClient(
@@ -12,17 +22,8 @@ def fetch_data(config, sensor_type, hostname, param, period="30h"):
 
     query_api = client.query_api()
 
-    query = """from(bucket: "{bucket}")
-        |> range(start: -{period})
-        |> filter(fn:(r) => r._measurement == "sensor.{sensor_type}")
-        |> filter(fn: (r) => r.hostname == "{hostname}")
-        |> filter(fn: (r) => r["_field"] == "{param}")
-        |> aggregateWindow(every: 3m, fn: mean, createEmpty: false)
-        |> exponentialMovingAverage(n: 3)
-    """
-
     table_list = query_api.query(
-        query=query.format(
+        query=FLUX_QUERY.format(
             bucket=config["BUCKET"],
             sensor_type=sensor_type,
             hostname=hostname,
