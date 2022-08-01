@@ -3,11 +3,10 @@
 import pathlib
 import os
 import datetime
-import dateutil.parser
 import io
 import matplotlib
-import pprint
 import PIL.Image
+import logging
 
 matplotlib.use("Agg")
 
@@ -116,7 +115,9 @@ def plot_item(ax, title, unit, data, ylabel, ylim, fmt, small, face_map):
     ax.label_outer()
 
 
-def create_sensor_graph(db_config, config, font_config):
+def draw_sensor_graph(db_config, config, font_config):
+    logging.info("draw sensor graph")
+
     face_map = get_face_map(font_config)
 
     room_list = config["ROOM_LIST"]

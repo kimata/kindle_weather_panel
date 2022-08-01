@@ -1,0 +1,69 @@
+LIVENESS:
+  FILE: /dev/shm/healthz
+
+PANEL:
+  DEVICE:
+    WIDTH: 1072
+    HEIGHT: 1448
+  UPDATE:
+    INTERVAL: 120
+
+INFLUXDB:
+  URL: http://proxy.green-rabbit.net:8086
+  TOKEN: fffjkjkgfklhjglkjiojtroijojhkljhklghklfjklhhlnklhnklfgnhklgnhgfdlhfgnhlkngdfnfnhgdkfnh==
+  ORG: home
+  BUCKET: sensor
+
+WEATHER:
+  WIDTH: 1072
+  HEIGHT: 850
+  DATA:
+    YAHOO:
+      URL: https://weather.yahoo.co.jp/weather/jp/13/4410.html
+
+GRAPH:
+  WIDTH: 1072
+  HEIGHT: 598
+  ROOM_LIST:
+    - LABEL: 洋室A
+      TYPE: rasp
+      HOST: NONE
+    - LABEL: 洋室B
+      TYPE: rasp
+      HOST: rpi-cm4-sensor-1
+    - LABEL: 洋室C
+      TYPE: rasp
+      HOST: rpi-cm4-sensor-2
+  PARAM_LIST:
+    - NAME: temp
+      FORMAT: '{:.1f}'
+      UNIT: C
+      RANGE:
+        - 10
+        - 40
+      SIZE_SMALL: False
+    - NAME: humi
+      FORMAT: '{:.1f}'
+      UNIT: '%'
+      RANGE:
+        - 0
+        - 100
+      SIZE_SMALL: False
+    - NAME: co2
+      FORMAT: '{:.0f}'
+      UNIT: ppm
+      RANGE:
+        - 0
+        - 1500
+      SIZE_SMALL: False
+
+FONT:
+  PATH: ../font/ # スクリプトのフォルダからの相対パス
+  MAP:
+    JP_REGULAR: A-OTF-ShinGoPro-Regular.otf
+    JP_MEDIUM: A-OTF-ShinGoPro-Medium.otf
+    JP_BOLD: A-OTF-ShinGoPro-Bold.otf
+    EN_COND_BOLD: FuturaStd-CondensedBold.otf
+    EN_COND: FuturaStd-Condensed.otf
+    EN_MEDIUM: FuturaStd-Medium.otf
+    EN_BOLD: FuturaStd-Bold.otf
