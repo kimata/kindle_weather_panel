@@ -66,6 +66,12 @@ while True:
         fail = 0
         sys.stdout.flush()
 
+        if proc.returncode != 0:
+            logging.error(
+                "Failed to create image. (code: {code})".format(code=proc.returncode)
+            )
+            sys.exit(proc.returncode)
+
         logging.info("Finish.")
         pathlib.Path(config["LIVENESS"]["FILE"]).touch()
     except:
