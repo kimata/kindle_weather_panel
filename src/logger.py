@@ -3,9 +3,9 @@
 import coloredlogs
 import logging
 import logging.handlers
-import pathlib
 import bz2
 import os
+import io
 
 LOG_FORMAT = (
     "%(asctime)s %(levelname)s [%(filename)s:%(lineno)s %(funcName)s] %(message)s"
@@ -23,27 +23,18 @@ class GZipRotator:
         os.remove(source)
 
 
-def init(name, dir_path=None):
+def init(name, is_str=False):
     coloredlogs.install(fmt=LOG_FORMAT)
 
-    if dir_path is not None:
-        log_path = pathlib.Path(dir_path)
-        os.makedirs(str(log_path), exist_ok=True)
-
-        logger = logging.getLogger()
-        log_handler = logging.handlers.RotatingFileHandler(
-            str(log_path / (name + ".log")),
-            encoding="utf8",
-            maxBytes=10 * 1024 * 1024,
-            backupCount=10,
-        )
-        log_handler.formatter = logging.Formatter(
+    if is_str:
+        str_io = io.StringIO()
+        handler = logging.StreamHandler(str_io)
+        handler.formatter = logging.Formatter(
             fmt=LOG_FORMAT, datefmt="%Y-%m-%d %H:%M:%S"
         )
-        log_handler.namer = GZipRotator.namer
-        log_handler.rotator = GZipRotator.rotator
+        logging.getLogger().addHandler(handler)
 
-        logger.addHandler(log_handler)
+        return str_io
 
 
 if __name__ == "__main__":
