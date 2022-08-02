@@ -75,7 +75,6 @@ while True:
         logging.info("Finish.")
         pathlib.Path(config["LIVENESS"]["FILE"]).touch()
     except:
-        print("x")
         sys.stdout.flush()
         fail += 1
         time.sleep(10)
