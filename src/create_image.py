@@ -12,7 +12,7 @@ from weather_panel import draw_weather_panel
 from config import load_config
 
 ######################################################################
-logger.init("E-Ink Weather Panel")
+logger.init("Kindle Weather Panel")
 
 logging.info("start to create image")
 
