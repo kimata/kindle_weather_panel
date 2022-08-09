@@ -1,6 +1,3 @@
-LIVENESS:
-  FILE: /dev/shm/healthz
-
 PANEL:
   DEVICE:
     WIDTH: 1072
@@ -67,3 +64,6 @@ FONT:
     EN_COND: FuturaStd-Condensed.otf
     EN_MEDIUM: FuturaStd-Medium.otf
     EN_BOLD: FuturaStd-Bold.otf
+
+LIVENESS:
+  FILE: /dev/shm/healthz
