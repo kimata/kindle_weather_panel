@@ -7,7 +7,7 @@ PANEL:
 
 INFLUXDB:
   URL: http://proxy.green-rabbit.net:8086
-  TOKEN: fffjkjkgfklhjglkjiojtroijojhkljhklghklfjklhhlnklhnklfgnhklgnhgfdlhfgnhlkngdfnfnhgdkfnh==
+  TOKEN: dummy
   ORG: home
   BUCKET: sensor
 

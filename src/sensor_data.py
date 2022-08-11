@@ -17,7 +17,7 @@ from(bucket: "{bucket}")
 
 
 def fetch_data(config, sensor_type, hostname, param, period="30h"):
-    token = os.environ.get("INFLUXDB_TOKEN", config["INFLUXDB"]["TOKEN"])
+    token = os.environ.get("INFLUXDB_TOKEN", config["TOKEN"])
     client = influxdb_client.InfluxDBClient(
         url=config["URL"], token=token, org=config["ORG"]
     )
