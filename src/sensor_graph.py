@@ -146,9 +146,6 @@ def draw_sensor_graph(db_config, config, font_config):
                     "valid": False,
                 }
                 break
-        else:
-            continue
-        break
 
     for row, param in enumerate(config["PARAM_LIST"]):
         for col in range(0, len(room_list)):
