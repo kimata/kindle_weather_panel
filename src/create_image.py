@@ -12,7 +12,7 @@ from weather_panel import draw_weather_panel
 from config import load_config
 
 ######################################################################
-logger.init("Kindle Weather Panel")
+logger.init("panel.kindle.weather")
 
 logging.info("start to create image")
 
