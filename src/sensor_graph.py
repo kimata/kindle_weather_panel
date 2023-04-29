@@ -131,6 +131,7 @@ def draw_sensor_graph(db_config, config, font_config):
     fig.set_size_inches(width / IMAGE_DPI, height / IMAGE_DPI)
 
     cache = None
+    time_begin = datetime.datetime.now(datetime.timezone.utc)
     for row, param in enumerate(config["PARAM_LIST"]):
         for col in range(0, len(room_list)):
             data = fetch_data(
@@ -139,7 +140,11 @@ def draw_sensor_graph(db_config, config, font_config):
                 room_list[col]["HOST"],
                 param["NAME"],
             )
-            if len(data["time"]) != 0:
+            if not data["valid"]:
+                continue
+            if data["time"][0] < time_begin:
+                time_begin = data["time"][0]
+            if cache is None:
                 cache = {
                     "time": data["time"],
                     "value": [-100.0 for x in range(len(data["time"]))],
