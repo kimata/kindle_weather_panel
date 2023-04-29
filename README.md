@@ -1,4 +1,4 @@
-# Kindle Weather
+# Kindle weather panel
 
 ## 概要
 
