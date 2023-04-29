@@ -43,14 +43,14 @@ def get_face_map(font_config):
     }
 
 
-def plot_item(ax, title, unit, data, ylabel, ylim, fmt, small, face_map):
+def plot_item(ax, title, unit, data, xbegin, ylabel, ylim, fmt, small, face_map):
     x = data["time"]
     y = data["value"]
 
     if title is not None:
         ax.set_title(title, fontproperties=face_map["title"], color="#333333")
     ax.set_ylim(ylim)
-    ax.set_xlim([x[0], x[-1] + datetime.timedelta(hours=1)])
+    ax.set_xlim([xbegin, x[-1] + datetime.timedelta(hours=1)])
 
     ax.plot(
         x,
@@ -171,6 +171,7 @@ def draw_sensor_graph(db_config, config, font_config):
                 title,
                 param["UNIT"],
                 data,
+                data["time"][0],
                 param["UNIT"],
                 param["RANGE"],
                 param["FORMAT"],
