@@ -271,7 +271,7 @@ def draw_weather_panel(config, font_config):
     logging.info("draw weather panel")
 
     weather_info = get_weather_yahoo(config["DATA"]["YAHOO"])
-    img = PIL.Image.new("L", (config["WIDTH"], config["HEIGHT"]), "#FFF")
+    img = PIL.Image.new("RGBA", (config["WIDTH"], config["HEIGHT"]), "#FFF")
 
     draw_panel_weather(img, config, font_config, weather_info)
 

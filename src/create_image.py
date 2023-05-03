@@ -4,7 +4,9 @@
 import sys
 import PIL.Image
 import logging
+import traceback
 import textwrap
+import notify_slack
 
 import logger
 from sensor_graph import draw_sensor_graph
@@ -20,9 +22,9 @@ logging.info("start to create image")
 config = load_config()
 
 img = PIL.Image.new(
-    "L",
+    "RGBA",
     (config["PANEL"]["DEVICE"]["WIDTH"], config["PANEL"]["DEVICE"]["HEIGHT"]),
-    "#FFF",
+    (255, 255, 255, 255),
 )
 
 try:
@@ -33,13 +35,11 @@ try:
     img.paste(weather_panel_img, (0, 0))
     img.paste(sensor_graph_img, (0, config["WEATHER"]["HEIGHT"]))
 except:
-    import traceback
-    import notify_slack
 
     draw = PIL.ImageDraw.Draw(img)
     draw.rectangle(
         (0, 0, config["PANEL"]["DEVICE"]["WIDTH"], config["PANEL"]["DEVICE"]["HEIGHT"]),
-        fill=(255),
+        fill=(255, 255, 255, 255),
     )
 
     draw_text(
@@ -68,5 +68,4 @@ except:
         )
     print(traceback.format_exc(), file=sys.stderr)
 
-
-img.save(sys.stdout.buffer, "PNG")
+img = img.convert("L").save(sys.stdout.buffer, "PNG")
