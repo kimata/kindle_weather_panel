@@ -13,11 +13,11 @@ RUN apt-get install -y python3-opencv
 RUN apt-get install -y python3-requests
 RUN apt-get install -y python3-paramiko
 
-RUN apt-get clean
-
-RUN pip3 install 'influxdb-client[ciso]'
-
 WORKDIR /opt/kindle_weather
+
+COPY requirements.txt .
+RUN pip3 install -r requirements.txt
+
 COPY . .
 
 CMD ["./src/display_image.py"]
