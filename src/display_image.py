@@ -23,6 +23,15 @@ FAIL_MAX = 5
 CREATE_IMAGE = os.path.dirname(os.path.abspath(__file__)) + "/create_image.py"
 
 
+def notify_error(config):
+    notify_slack.error(
+        config["SLACK"]["BOT_TOKEN"],
+        config["SLACK"]["ERROR"]["CHANNEL"],
+        traceback.format_exc(),
+        config["SLACK"]["ERROR"]["INTERVAL_MIN"],
+    )
+
+
 def ssh_connect(hostname):
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -53,6 +62,7 @@ try:
     ssh.exec_command("initctl stop powerd")
     ssh.exec_command("initctl stop framework")
 except:
+    notify_error(config)
     logging.error(traceback.format_exc())
     sys.exit(-1)
 
@@ -82,6 +92,9 @@ while True:
         pathlib.Path(config["LIVENESS"]["FILE"]).touch()
     except:
         sys.stdout.flush()
+        notify_error(config)
+        logging.error(traceback.format_exc())
+
         fail += 1
         time.sleep(10)
         ssh = ssh_connect(kindle_hostname)
@@ -91,14 +104,7 @@ while True:
     gc.collect()
 
     if fail > FAIL_MAX:
-        error_msg = "接続エラーが続いたので終了します．"
-        sys.stderr.write(error_msg + "\n")
-        notify_slack.error(
-            config["SLACK"]["BOT_TOKEN"],
-            config["SLACK"]["ERROR"]["CHANNEL"],
-            error_msg,
-            config["SLACK"]["ERROR"]["INTERVAL_MIN"],
-        )
+        sys.stderr.write("接続エラーが続いたので終了します．\n")
         sys.exit(-1)
 
     # 更新されていることが直感的に理解しやすくなるように，更新タイミングを 0 秒
