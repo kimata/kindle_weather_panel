@@ -24,13 +24,14 @@ GRAPH:
   ROOM_LIST:
     - LABEL: 洋室A
       TYPE: rasp
-      HOST: NONE
+      HOST: rpi-cm4-sensor-1
     - LABEL: 洋室B
       TYPE: rasp
-      HOST: rpi-cm4-sensor-1
+      HOST: rpi-cm4-sensor-2
     - LABEL: 洋室C
       TYPE: rasp
-      HOST: rpi-cm4-sensor-2
+      HOST: rpi-cm4-sensor-3
+
   PARAM_LIST:
     - NAME: temp
       FORMAT: '{:.1f}'
