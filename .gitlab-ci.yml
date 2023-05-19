@@ -53,16 +53,16 @@ test-regular:
     paths:
       - ${CI_JOB_NAME}.png
 
-# # 本番設定ファイルで，問題なく動くかチェック
-# test-display:
-#   stage: test
+# 本番設定ファイルで，問題なく動くかチェック
+test-display:
+  stage: test
 
-#   variables:
-#     RASP_HOSTNAME: rasp-meter-1
+  variables:
+    KINDLE_HOSTNAME: kindle-2f-hall
 
-#   script:
-#     - docker pull ${CI_REGISTRY_IMAGE}
-#     - docker run -t ${CI_REGISTRY_IMAGE} src/display_image.py -f config.yaml -t ${RASP_HOSTNAME} -s
+  script:
+    - docker pull ${CI_REGISTRY_IMAGE}
+    - docker run -t ${CI_REGISTRY_IMAGE} src/display_image.py -f config.yaml -t ${KINDLE_HOSTNAME} -s
 
 deploy:
   stage: deploy
