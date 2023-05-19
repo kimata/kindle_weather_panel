@@ -92,5 +92,4 @@ else:
 logging.info("Save {out_file}.".format(out_file=str(out_file)))
 convert_to_gray(img).save(out_file, "PNG")
 
-
-exit(0)
+exit(status)
