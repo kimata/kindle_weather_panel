@@ -46,7 +46,7 @@ def ssh_connect(hostname):
     return ssh
 
 
-logger.init("panel.kindle.weather")
+logger.init("panel.kindle.weather", level=logging.INFO)
 
 kindle_hostname = os.environ.get(
     "KINDLE_HOSTNAME", sys.argv[1] if len(sys.argv) != 1 else None
