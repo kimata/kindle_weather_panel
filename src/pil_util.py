@@ -68,9 +68,7 @@ def draw_text(
 
 
 def load_image(img_config):
-    img = PIL.Image.open(
-        str(pathlib.Path(os.path.dirname(__file__), img_config["PATH"]))
-    )
+    img = PIL.Image.open(pathlib.Path(os.path.dirname(__file__), img_config["PATH"]))
 
     if "RESIZE" in img_config:
         img = img.resize(
@@ -82,4 +80,22 @@ def load_image(img_config):
     if "BRIGHTNESS" in img_config:
         img = PIL.ImageEnhance.Brightness(img).enhance(img_config["BRIGHTNESS"])
 
+    return img
+
+
+def alpha_paste(img, paint_img, pos):
+    canvas = PIL.Image.new(
+        "RGBA",
+        img.size,
+        (255, 255, 255, 0),
+    )
+    canvas.paste(paint_img, pos)
+    img.alpha_composite(canvas, (0, 0))
+
+
+def convert_to_gray(img):
+    img = img.convert("RGB")
+    img = img.point(([int(pow(x / 255.0, 2.2) * 255) for x in range(256)] * 3))
+    img = img.convert("L")
+    img = img.point([int(pow(x / 255.0, 1.0 / 2.2) * 255) for x in range(256)])
     return img
