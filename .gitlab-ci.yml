@@ -11,12 +11,10 @@ build-image:
   image: registry.green-rabbit.net:5000/kimata/ubuntu-docker-build:latest
 
   script:
-    - docker rm $(docker ps -a --filter 'status=exited' -q) || true
+    # - docker rm $(docker ps -a --filter 'status=exited' -q) || true
     - export GIT_SSL_NO_VERIFY=1
     - git clone https://gitlab.green-rabbit.net/kimata/panel_config.git
     - mv panel_config/kindle_weather.yaml config.yaml
-    - mkdir key
-    - mv panel_config/panel.id_rsa key
     - git clone https://gitlab.green-rabbit.net/kimata/font.git private_font
     - mv private_font/* font
     - docker pull ${CI_REGISTRY_IMAGE} || true
