@@ -26,6 +26,17 @@ from weather_panel import draw_weather_panel
 from pil_util import draw_text, get_font, convert_to_gray
 from config import load_config
 
+
+def notify_error(config):
+    notify_slack.error(
+        config["SLACK"]["BOT_TOKEN"],
+        config["SLACK"]["ERROR"]["CHANNEL"],
+        config["SLACK"]["FROM"],
+        traceback.format_exc(),
+        config["SLACK"]["ERROR"]["INTERVAL_MIN"],
+    )
+
+
 ######################################################################
 args = docopt(__doc__)
 
@@ -73,12 +84,8 @@ except:
         "left" "#333",
     )
     if "SLACK" in config:
-        notify_slack.error(
-            config["SLACK"]["BOT_TOKEN"],
-            config["SLACK"]["ERROR"]["CHANNEL"],
-            traceback.format_exc(),
-            config["SLACK"]["ERROR"]["INTERVAL_MIN"],
-        )
+        notify_error(config)
+
     print(traceback.format_exc(), file=sys.stderr)
     # NOTE: 使われてなさそうな値にしておく．
     # display_image.py と合わせる必要あり．
