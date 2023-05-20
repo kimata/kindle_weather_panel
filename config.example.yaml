@@ -20,16 +20,16 @@ WEATHER:
 
 GRAPH:
   WIDTH: 1072
-  HEIGHT: 598
+  HEIGHT: 590
   ROOM_LIST:
     - LABEL: 洋室A
-      TYPE: rasp
+      TYPE: sensor.rasp
       HOST: rpi-cm4-sensor-1
     - LABEL: 洋室B
-      TYPE: rasp
+      TYPE: sensor.rasp
       HOST: rpi-cm4-sensor-2
     - LABEL: 洋室C
-      TYPE: rasp
+      TYPE: sensor.rasp
       HOST: rpi-cm4-sensor-3
 
   PARAM_LIST:

@@ -78,7 +78,7 @@ def display_image(ssh):
 ######################################################################
 args = docopt(__doc__)
 
-logger.init("panel.e-ink.weather", level=logging.INFO)
+logger.init("panel.kindle.weather", level=logging.INFO)
 
 is_onece = args["-s"]
 kindle_hostname = os.environ.get("KINDLE_HOSTNAME", args["-t"])
