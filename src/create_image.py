@@ -24,7 +24,7 @@ import logger
 from sensor_graph import draw_sensor_graph
 from weather_panel import draw_weather_panel
 from pil_util import draw_text, get_font, convert_to_gray
-from config import load_config
+from config import load_config, get_db_config
 
 
 def notify_error(config):
@@ -42,9 +42,12 @@ args = docopt(__doc__)
 
 logger.init("panel.kindle.weather", level=logging.INFO)
 
-logging.info("start to create image")
+logging.info("Start to create image")
 
-config = load_config(args["-f"])
+config_file = args["-f"]
+
+logging.info("Using config config: {config_file}".format(config_file=config_file))
+config = load_config(config_file)
 
 img = PIL.Image.new(
     "RGBA",
@@ -56,7 +59,7 @@ status = 0
 try:
     weather_panel_img = draw_weather_panel(config["WEATHER"], config["FONT"])
     sensor_graph_img = draw_sensor_graph(
-        config["INFLUXDB"], config["GRAPH"], config["FONT"]
+        get_db_config(config), config["GRAPH"], config["FONT"]
     )
     img.paste(weather_panel_img, (0, 0))
     img.paste(sensor_graph_img, (0, config["WEATHER"]["HEIGHT"]))

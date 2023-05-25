@@ -12,7 +12,6 @@ RUN apt-get update && apt-get install -y \
     python3-opencv \
     python3-requests \
     python3-paramiko \
-    curl \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
