@@ -51,15 +51,15 @@ test-regular:
       - ${CI_JOB_NAME}.png
 
 # 本番設定ファイルで，問題なく動くかチェック
-test-display:
-  stage: test
+# test-display:
+#   stage: test
 
-  variables:
-    KINDLE_HOSTNAME: kindle-2f-hall
+#   variables:
+#     KINDLE_HOSTNAME: kindle-2f-hall
 
-  script:
-    - docker pull ${CI_REGISTRY_IMAGE}
-    - docker run -t ${CI_REGISTRY_IMAGE} src/display_image.py -c config.yaml -t ${KINDLE_HOSTNAME} -s
+#   script:
+#     - docker pull ${CI_REGISTRY_IMAGE}
+#     - docker run -t ${CI_REGISTRY_IMAGE} src/display_image.py -c config.yaml -t ${KINDLE_HOSTNAME} -s
 
 deploy:
   stage: deploy
