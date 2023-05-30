@@ -105,13 +105,6 @@ while True:
     try:
         proc = display_image(ssh)
 
-        if proc.returncode != 0:
-            message = "Failed to create image. (code: {code})".format(
-                code=proc.returncode
-            )
-            logging.error(message)
-            raise message
-
         if proc.returncode == 0:
             logging.info("Success.")
         elif proc.returncode == 222:
