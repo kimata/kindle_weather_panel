@@ -112,18 +112,25 @@ while True:
             logging.error(message)
             raise message
 
-        fail_count = 0
+        if proc.returncode == 0:
+            logging.info("Success.")
+        elif proc.returncode == 222:
+            logging.warn("Finish. (something is wrong)")
+            raise
+        else:
+            logging.error(
+                "Failed to create image. (code: {code})".format(code=proc.returncode)
+            )
+            raise
 
-        logging.info("Finish.")
+        logging.info("Success.")
         pathlib.Path(config["LIVENESS"]["FILE"]).touch()
 
         if is_one_time:
             break
     except:
         fail_count += 1
-
         if is_one_time or (fail_count >= NOTIFY_THRESHOLD):
-            notify_error(config, traceback.format_exc())
             logging.error("エラーが続いたので終了します．")
             raise
         else:
