@@ -61,12 +61,12 @@ test-regular:
 #     - docker pull ${CI_REGISTRY_IMAGE}
 #     - docker run -t ${CI_REGISTRY_IMAGE} src/display_image.py -c config.yaml -t ${KINDLE_HOSTNAME} -s
 
-deploy:
-  stage: deploy
-  image:
-    name: bitnami/kubectl:latest
-    entrypoint: ['']
-  script:
-    - kubectl config get-contexts
-    - kubectl config use-context kimata/kindle_weather_panel:pod-rollout
-    - kubectl --insecure-skip-tls-verify=true rollout restart -n panel deployment kindle-weather-panel-deployment
+# deploy:
+#   stage: deploy
+#   image:
+#     name: bitnami/kubectl:latest
+#     entrypoint: ['']
+#   script:
+#     - kubectl config get-contexts
+#     - kubectl config use-context kimata/kindle_weather_panel:pod-rollout
+#     - kubectl --insecure-skip-tls-verify=true rollout restart -n panel deployment kindle-weather-panel-deployment
